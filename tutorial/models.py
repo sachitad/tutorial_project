@@ -12,7 +12,7 @@ class Topic(models.Model):
                              help_text='High Level: Python or Ruby or ROR')
 
     def __str__(self):
-        return self.topic
+        return self.name
 
 
 class Category(models.Model):
