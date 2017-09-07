@@ -8,7 +8,7 @@ class Topic(models.Model):
     This model basically stores what is the tutorial topic about:
     like django, python or whatever
     """
-    topic = models.CharField(max_length=255,
+    name = models.CharField(max_length=255,
                              help_text='High Level: Python or Ruby or ROR')
 
     def __str__(self):
