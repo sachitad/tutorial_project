@@ -8,8 +8,8 @@ class Topic(models.Model):
     This model basically stores what is the tutorial topic about:
     like django, python or whatever
     """
-    name = models.CharField(max_length=255,
-                             help_text='High Level: Python or Ruby or ROR')
+    name = models.CharField(max_length=255, unique=True,
+                            help_text='High Level: Python or Ruby or ROR')
 
     def __str__(self):
         return self.name
@@ -24,7 +24,8 @@ class Category(models.Model):
     # you won't be creating topic so this is optional
     topic = models.ForeignKey(Topic, blank=True, null=True,
                               help_text='If you have used topic make sure'
-                                        'to input it here')
+                                        'to input it here',
+                              related_name='categories')
 
     def __str__(self):
         return self.name
@@ -39,7 +40,7 @@ class Tutorial(models.Model):
     """
     # Enforcing that this tutorial website will have category
     # This is how I like it
-    category = models.ForeignKey(Category)
+    category = models.ForeignKey(Category, related_name='tutorials')
     title = models.CharField(max_length=255)
     body = RichTextField()
 
