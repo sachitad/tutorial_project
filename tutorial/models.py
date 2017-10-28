@@ -64,9 +64,9 @@ class Tutorial(AdminSortableModel, TimeStampedModel):
     """
     # Enforcing that this tutorial website will have category
     # This is how I like it
-    category = models.ForeignKey(Category, related_name='tutorials')
-    slug = models.SlugField(unique=True)
     name = models.CharField(max_length=255)
+    slug = models.SlugField(unique=True)
+    category = models.ForeignKey(Category, related_name='tutorials')
     body = RichTextField()
 
     def __str__(self):
@@ -76,5 +76,21 @@ class Tutorial(AdminSortableModel, TimeStampedModel):
         return reverse('tutorial:tutorial',
                        args=[self.category.topic.slug, self.slug])
 
+    def next_tutorial(self):
+        tutorials = self.category.tutorials.all()
+        for tutorial in tutorials:
+            if self.order+1 == tutorial.order:
+                return reverse('tutorial:tutorial',
+                               args=[tutorial.category.topic.slug, tutorial.slug])
+
+    def previous_tutorial(self):
+        tutorials = self.category.tutorials.all()
+        for tutorial in tutorials:
+            if self.order-1 == tutorial.order:
+                return reverse('tutorial:tutorial',
+                               args=[tutorial.category.topic.slug, tutorial.slug])
+
+
     class Meta:
         ordering = ['order']
+

@@ -2,9 +2,21 @@
 {% block content %}
   <div class="row">
     <h2 class="header center light-blue-text">{{ object }}</h2>
-    <hr />
+    <hr/>
   </div>
   <div class="row">
     {{ object.body|safe }}
+  </div>
+  <div class="row">
+    <hr/>
+    <br />
+    {% if object.previous_tutorial %}
+    <a class="blue-grey lighten-1 btn left" href="{{ object.previous_tutorial }}">
+      <i class="material-icons left">chevron_left</i>Previous</a>
+    {% endif %}
+    {% if object.next_tutorial %}
+    <a class="blue-grey lighten-1 btn right" href="{{ object.next_tutorial }}">
+      <i class="material-icons right">chevron_right</i>Next</a>
+    {% endif %}
   </div>
 {% endblock %}

@@ -16,5 +16,5 @@ class CategoryAdmin(SortableAdmin):
 
 
 @admin.register(Tutorial)
-class TutorialAdmin(admin.ModelAdmin):
-    pass
+class TutorialAdmin(SortableAdmin):
+    prepopulated_fields = {"slug": ("name",)}
