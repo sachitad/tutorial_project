@@ -24,7 +24,9 @@
             <div class="card-content white-text">
               <ul>
                 {% for category in topic.categories.all %}
-                  <li>{{ category }}</li>
+                  <li><a
+                      {% if category.get_absolute_url %}href="{{ category.get_absolute_url }}" {% endif %}>{{ category }}</a>
+                  </li>
                 {% endfor %}
               </ul>
             </div>
@@ -36,7 +38,7 @@
         <div class="col s12 m4">
           <div class="card blue-grey darken-2">
             <div class="card-action center-align">
-              <a href="#">{{ category }}</a>
+              <a {% if category.get_absolute_url %}href="{{ category.get_absolute_url }}" {% endif %}>{{ category }}</a>
             </div>
             <hr>
             <div class="card-content white-text">

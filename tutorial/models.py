@@ -57,6 +57,12 @@ class Category(AdminSortableModel, TimeStampedModel):
         verbose_name_plural = 'Categories'
         ordering = ['order']
 
+    def get_absolute_url(self):
+        tutorial = self.tutorials.first()
+        if tutorial:
+            return reverse('tutorial:tutorial',
+                       args=[self.topic.slug, tutorial.slug])
+
 
 class Tutorial(AdminSortableModel, TimeStampedModel):
     """
@@ -72,23 +78,24 @@ class Tutorial(AdminSortableModel, TimeStampedModel):
     def __str__(self):
         return self.name
 
+
     def get_absolute_url(self):
         return reverse('tutorial:tutorial',
                        args=[self.category.topic.slug, self.slug])
 
     def next_tutorial(self):
-        tutorials = self.category.tutorials.all()
-        for tutorial in tutorials:
-            if self.order+1 == tutorial.order:
-                return reverse('tutorial:tutorial',
-                               args=[tutorial.category.topic.slug, tutorial.slug])
+        tutorial = self.category.tutorials.filter(order=self.order+1)
+        if tutorial.exists():
+            tutorial = tutorial[0]
+            return reverse('tutorial:tutorial',
+                           args=[tutorial.category.topic.slug, tutorial.slug])
 
     def previous_tutorial(self):
-        tutorials = self.category.tutorials.all()
-        for tutorial in tutorials:
-            if self.order-1 == tutorial.order:
-                return reverse('tutorial:tutorial',
-                               args=[tutorial.category.topic.slug, tutorial.slug])
+        tutorial = self.category.tutorials.filter(order=self.order-1)
+        if tutorial.exists():
+            tutorial = tutorial[0]
+            return reverse('tutorial:tutorial',
+                           args=[tutorial.category.topic.slug, tutorial.slug])
 
 
     class Meta:
