@@ -1,15 +1,17 @@
 from django.contrib import admin
 
+from adminsortable.admin import SortableAdmin
+
 from .models import Topic, Category, Tutorial
 
 
 @admin.register(Topic)
-class TopicAdmin(admin.ModelAdmin):
-    pass
+class TopicAdmin(SortableAdmin):
+    prepopulated_fields = {"slug": ("name",)}
 
 
 @admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(SortableAdmin):
     pass
 
 

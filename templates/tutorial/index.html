@@ -1,129 +1,54 @@
-{% load nav_menu %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-  <title>We provide you with awesome upto date tutorials!</title>
-
-  <!-- CSS  -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-        rel="stylesheet">
-  <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-</head>
-<body>
-<nav class="blue-grey darken-1" role="navigation">
-  <div class="nav-wrapper container"><a id="logo-container" href="#"
-                                        class="brand-logo">Tutorial
-    Website</a>
-    {% nav_menu %}
-  </div>
-</nav>
-<div class="section no-pad-bot" id="index-banner">
-  <div class="container">
-    <br><br>
-    <h1 class="header center light-blue-text">Programming tutorials</h1>
-    <div class="row center">
-      <h5 class="header col s12 light">Learn while doing..</h5>
-    </div>
-  </div>
-</div>
-
-
-<div class="container">
-  <div class="section">
-    <!--   Icon Section   -->
-    <div class="row">
-      {% if topics %}
-        {% for topic in topics %}
-          <div class="col s12 m4">
-            <div class="card blue-grey darken-2">
-              <div class="card-action center-align">
-                <a href="#">{{ topic }}</a>
-              </div>
-              <hr>
-              <div class="card-content white-text">
-                <ul>
-                  {% for category in topic.categories.all %}
-                    <li>{{ category }}</li>
-                  {% endfor %}
-                </ul>
-              </div>
-            </div>
-          </div>
-        {% endfor %}
-      {% else %}
-        {% for category in categories %}
-          <div class="col s12 m4">
-            <div class="card blue-grey darken-2">
-              <div class="card-action center-align">
-                <a href="#">{{ category }}</a>
-              </div>
-              <hr>
-              <div class="card-content white-text">
-                <ul>
-                  {% for tutorial in category.tutorials.all %}
-                    <li>{{ tutorial }}</li>
-                  {% endfor %}
-                </ul>
-              </div>
-            </div>
-          </div>
-        {% endfor %}
-      {% endif %}
-    </div>
-  </div>
-  <br><br>
-</div>
-
-<footer class="page-footer blue-grey darken-1">
-  <div class="container">
-    <div class="row">
-      <div class="col l6 s12">
-        <h5 class="white-text">Company Bio</h5>
-        <p class="grey-text text-lighten-4">We are a team of college
-          students working on this project like it's our full time
-          job. Any amount would help support and continue development
-          on this project and is greatly appreciated.</p>
-
-
-      </div>
-      <div class="col l3 s12">
-        <h5 class="white-text">Settings</h5>
-        <ul>
-          <li><a class="white-text" href="#!">Link 1</a></li>
-          <li><a class="white-text" href="#!">Link 2</a></li>
-          <li><a class="white-text" href="#!">Link 3</a></li>
-          <li><a class="white-text" href="#!">Link 4</a></li>
-        </ul>
-      </div>
-      <div class="col l3 s12">
-        <h5 class="white-text">Connect</h5>
-        <ul>
-          <li><a class="white-text" href="#!">Link 1</a></li>
-          <li><a class="white-text" href="#!">Link 2</a></li>
-          <li><a class="white-text" href="#!">Link 3</a></li>
-          <li><a class="white-text" href="#!">Link 4</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <div class="footer-copyright">
+{% extends 'tutorial/base.html' %}
+{% block home_page_banner %}
+  <div class="section no-pad-bot" id="index-banner">
     <div class="container">
-      Made by <a class="orange-text text-lighten-3"
-                 href="http://materializecss.com">Materialize</a>
+      <br><br>
+      <h2 class="header center light-blue-text">Python Programming
+        tutorials</h2>
+      <div class="row center">
+        <h5 class="header col s12 light">Learn while doing..</h5>
+      </div>
     </div>
   </div>
-</footer>
-
-
-<!--  Scripts-->
-<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-<script
-    src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-
-</body>
-</html>
-
+{% endblock %}
+{% block content %}
+  <div class="row">
+    {% if topics %}
+      {% for topic in topics %}
+        <div class="col s12 m4">
+          <div class="card blue-grey darken-2">
+            <div class="card-action center-align">
+              <a href="{{ topic.get_absolute_url }}">{{ topic }}</a>
+            </div>
+            <hr>
+            <div class="card-content white-text">
+              <ul>
+                {% for category in topic.categories.all %}
+                  <li>{{ category }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      {% for category in categories %}
+        <div class="col s12 m4">
+          <div class="card blue-grey darken-2">
+            <div class="card-action center-align">
+              <a href="#">{{ category }}</a>
+            </div>
+            <hr>
+            <div class="card-content white-text">
+              <ul>
+                {% for tutorial in category.tutorials.all %}
+                  <li>{{ tutorial }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+{% endblock %}

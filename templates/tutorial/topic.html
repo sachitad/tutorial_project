@@ -1,0 +1,28 @@
+{% extends 'tutorial/base.html' %}
+{% block content %}
+  <div class="row">
+    <h2 class="header center light-blue-text">{{ object }}</h2>
+  </div>
+  <div class="row">
+    {{ object.body|safe }}
+  </div>
+  <div class="row">
+    {% for category in object.categories.all %}
+      <div class="col s12 m4">
+        <div class="card blue-grey darken-2">
+          <div class="card-action center-align">
+            <a href="{{ category.get_absolute_url }}">{{ category }}</a>
+          </div>
+          <hr>
+          <div class="card-content white-text">
+            <ul>
+              {% for tutorial in category.tutorials.all %}
+                <li>{{ tutorial }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

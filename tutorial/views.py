@@ -1,4 +1,4 @@
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, DetailView
 
 from .models import Topic, Category
 
@@ -26,3 +26,13 @@ class IndexView(TemplateView):
             context['categories'] = Category.objects.all()
         return context
 
+
+class TopicView(DetailView):
+    """
+    This the topic view, this is the page when clicks on the topic
+    In this page we will display categories of corresponding topic in a card
+    and all the tutorials
+    """
+    template_name = 'tutorial/topic.html'
+
+    model = Topic

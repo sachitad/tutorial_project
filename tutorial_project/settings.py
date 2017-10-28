@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     # Third Party apps
     'ckeditor',
     'django_extensions',
+    'adminsortable',
 ]
 
 MIDDLEWARE = [
