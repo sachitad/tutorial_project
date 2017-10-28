@@ -17,7 +17,7 @@
           <div class="card-content white-text">
             <ul>
               {% for tutorial in category.tutorials.all %}
-                <li>{{ tutorial }}</li>
+                <li><a href="{{ tutorial.get_absolute_url }}">{{ tutorial }}</a></li>
               {% endfor %}
             </ul>
           </div>

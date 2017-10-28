@@ -1,6 +1,6 @@
 from django.views.generic import TemplateView, DetailView
 
-from .models import Topic, Category
+from .models import Topic, Category, Tutorial
 
 class IndexView(TemplateView):
     """
@@ -36,3 +36,13 @@ class TopicView(DetailView):
     template_name = 'tutorial/topic.html'
 
     model = Topic
+
+
+class TutorialView(DetailView):
+    """
+    This is where we show the tutorial
+    /topic-slug/tutorial-slug/
+    """
+    template_name = 'tutorial/tutorial.html'
+
+    model = Tutorial

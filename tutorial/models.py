@@ -5,9 +5,18 @@ from ckeditor.fields import RichTextField
 
 from adminsortable.models import SortableMixin
 
+from django_extensions.db.models import TimeStampedModel
 
 
-class Topic(SortableMixin):
+class AdminSortableModel(SortableMixin):
+    order = models.PositiveIntegerField(default=0, editable=False,
+                                        db_index=True)
+
+    class Meta:
+        abstract = True
+
+
+class Topic(AdminSortableModel, TimeStampedModel):
     """
     This model basically stores what is the tutorial topic about:
     like django, python or whatever
@@ -16,8 +25,7 @@ class Topic(SortableMixin):
                             help_text='High Level: Python or Ruby or ROR')
     slug = models.SlugField(unique=True) # by default max length 50
     body = RichTextField(blank=True)
-    order = models.PositiveIntegerField(default=0, editable=False,
-                                        db_index=True)
+
 
     def __str__(self):
         return self.name
@@ -29,7 +37,7 @@ class Topic(SortableMixin):
         ordering = ['order']
 
 
-class Category(SortableMixin):
+class Category(AdminSortableModel, TimeStampedModel):
     """
     There can be category styled tutorial, this model handles that
     """
@@ -41,8 +49,6 @@ class Category(SortableMixin):
                                         'to input it here',
                               related_name='categories')
     body = RichTextField(blank=True)
-    order = models.PositiveIntegerField(default=0, editable=False,
-                                        db_index=True)
 
     def __str__(self):
         return self.name
@@ -52,15 +58,23 @@ class Category(SortableMixin):
         ordering = ['order']
 
 
-class Tutorial(models.Model):
+class Tutorial(AdminSortableModel, TimeStampedModel):
     """
     Tutorial will belong to Category and Topic
     """
     # Enforcing that this tutorial website will have category
     # This is how I like it
     category = models.ForeignKey(Category, related_name='tutorials')
-    title = models.CharField(max_length=255)
+    slug = models.SlugField(unique=True)
+    name = models.CharField(max_length=255)
     body = RichTextField()
 
     def __str__(self):
-        return self.title
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('tutorial:tutorial',
+                       args=[self.category.topic.slug, self.slug])
+
+    class Meta:
+        ordering = ['order']
