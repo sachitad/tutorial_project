@@ -10,19 +10,19 @@
   <title>We provide you with awesome upto date tutorials!</title>
 
   <!-- CSS  -->
+  <link rel="icon" href="{% static 'images/favicon.ico' %}">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
         rel="stylesheet">
   <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-  <link rel="stylesheet" href="{% static 'style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
 <header>
   <nav class="blue-grey darken-1" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container"
-                                          href="{% url 'tutorial:index' %}"
-                                          class="brand-logo">Tutorial
-      Website</a>
+    <div class="nav-wrapper container">
+      <a id="logo-container" href="{% url 'tutorial:index' %}"
+         class="brand-logo">Python Guides</a>
       {% nav_menu %}
     </div>
   </nav>

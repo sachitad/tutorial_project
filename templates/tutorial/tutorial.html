@@ -2,14 +2,14 @@
 {% block content %}
   <div class="row">
     <h2 class="header center light-blue-text">{{ object }}</h2>
-    <hr/>
+    <div class="underline"></div>
   </div>
   <div class="row">
     {{ object.body|safe }}
   </div>
   <div class="row">
-    <hr/>
-    <br />
+    <div class="underline"></div>
+    <br>
     {% if object.previous_tutorial %}
     <a class="blue-grey lighten-1 btn left" href="{{ object.previous_tutorial }}">
       <i class="material-icons left">chevron_left</i>Previous</a>
