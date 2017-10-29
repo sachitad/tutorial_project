@@ -2,7 +2,7 @@ from django.contrib import admin
 
 from adminsortable.admin import SortableAdmin
 
-from .models import Topic, Category, Tutorial
+from .models import Topic, Category, Tutorial, Subscriber
 
 
 @admin.register(Topic)
@@ -18,3 +18,8 @@ class CategoryAdmin(SortableAdmin):
 @admin.register(Tutorial)
 class TutorialAdmin(SortableAdmin):
     prepopulated_fields = {"slug": ("name",)}
+
+
+@admin.register(Subscriber)
+class SubscriberAdmin(SortableAdmin):
+    pass

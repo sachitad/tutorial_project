@@ -1,0 +1,21 @@
+<form class="col s12" id="subscriber-form" method="post"
+      action="{% url 'tutorial:subscribe' %}">
+  {% csrf_token %}
+  <div class="row">
+    <div class="input-field col s6">
+      <input id="id_email" type="email" class="validate" name="email">
+      <label for="id_email" data-error="Opps! Invalid Email">Enter your
+        Email</label>
+    </div>
+    <div class="input-field col s4" id="subscribe-button">
+      <button class="btn waves-effect blue darken-1" type="submit"
+              name="action">
+        Subscribe
+      </button>
+    </div>
+  </div>
+</form>
+<div id="subscriber-success">
+  Thank you for subscribing.
+</div>
+

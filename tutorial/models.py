@@ -101,3 +101,9 @@ class Tutorial(AdminSortableModel, TimeStampedModel):
     class Meta:
         ordering = ['order']
 
+
+class Subscriber(TimeStampedModel):
+    email = models.EmailField()
+
+    def __str__(self):
+        return self.email

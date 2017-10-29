@@ -1,6 +1,9 @@
 from django.views.generic import TemplateView, DetailView
+from django.http import HttpResponse
 
-from .models import Topic, Category, Tutorial
+from .models import Topic, Category, Tutorial, Subscriber
+
+from .forms import SubscriberForm
 
 class IndexView(TemplateView):
     """
@@ -46,3 +49,20 @@ class TutorialView(DetailView):
     template_name = 'tutorial/tutorial.html'
 
     model = Tutorial
+
+
+def subscribe_view(request):
+    """
+    Subscribe the user to python guides
+    """
+    if request.is_ajax() and request.method == 'POST':
+        form = SubscriberForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data.get('email')
+            subscriber = Subscriber.objects.filter(email=email)
+            # Only add if email doesn't exist before
+            if not subscriber.exists():
+                Subscriber.objects.create(email=email)
+            return HttpResponse(status=200)
+
+    return HttpResponse(status=400)

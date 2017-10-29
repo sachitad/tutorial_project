@@ -1,10 +1,11 @@
 from django import template
 
 from tutorial.models import Topic, Category
+from tutorial.forms import SubscriberForm
 
 register = template.Library()
 
-@register.inclusion_tag('tutorial/nav_menu.html')
+@register.inclusion_tag('tutorial/includes/nav_menu.html')
 def nav_menu():
     """
     Get the topics and show them as nav menu
@@ -17,5 +18,14 @@ def nav_menu():
     if topics.exists():
         return {'menu': topics}
     return {'menu': Category.objects.all()}
+
+
+@register.inclusion_tag('tutorial/includes/form.html')
+def subscriber_form():
+    """
+    We want to show the subscriber form in the footer in all the pages
+    thus creating this template tag
+    """
+    return {'form': SubscriberForm}
 
 

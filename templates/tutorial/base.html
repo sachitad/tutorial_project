@@ -17,7 +17,8 @@
 </head>
 <body>
 <nav class="blue-grey darken-1" role="navigation">
-  <div class="nav-wrapper container"><a id="logo-container" href="{% url 'tutorial:index' %}"
+  <div class="nav-wrapper container"><a id="logo-container"
+                                        href="{% url 'tutorial:index' %}"
                                         class="brand-logo">Tutorial
     Website</a>
     {% nav_menu %}
@@ -38,12 +39,7 @@
     <div class="row">
       <div class="col l6 s12">
         <h5 class="white-text">Company Bio</h5>
-        <p class="grey-text text-lighten-4">We are a team of college
-          students working on this project like it's our full time
-          job. Any amount would help support and continue development
-          on this project and is greatly appreciated.</p>
-
-
+        {% subscriber_form %}
       </div>
       <div class="col l3 s12">
         <h5 class="white-text">Settings</h5>
@@ -78,7 +74,23 @@
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script
     src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-
+<script type="text/javascript">
+    var subscriberForm = $("#subscriber-form");
+    subscriberForm.submit(function (event) {
+        event.preventDefault();
+        $.ajax({
+            url: subscriberForm.attr("action"),
+            type: subscriberForm.attr("method"),
+            data: subscriberForm.serialize(),
+            statusCode: {
+                200: function (html) {
+                    subscriberForm.hide();
+                    $( "#subscriber-success" ).show();
+                }
+            }
+        });
+    });
+</script>
 </body>
 </html>
 
