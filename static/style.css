@@ -31,3 +31,14 @@
     font-size: 1.2em;
 }
 
+/* Sticky footer */
+/* http://materializecss.com/footer.html */
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
