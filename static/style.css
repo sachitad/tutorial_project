@@ -1,0 +1,21 @@
+.tutorial-card .card-action {
+    border-bottom: 1px solid rgba(160, 160, 160, 0.2);
+}
+
+.tutorial-card .card-content {
+    padding: 0 24px 15px 24px;
+}
+
+.tutorial-card a {
+    color: #e0e0e0;
+    font-size: 1.2em;
+}
+
+.tutorial-card .card-content ul a {
+    line-height: 2;
+}
+
+.tutorial-card a:hover {
+    color: #fafafa;
+    cursor: pointer;
+}
