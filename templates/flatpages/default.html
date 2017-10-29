@@ -1,0 +1,7 @@
+{% extends 'tutorial/base.html' %}
+{% block content %}
+  <h4 class="center">{{ flatpage.title }}</h4>
+  <div>
+    {{ flatpage.content|safe }}
+  </div>
+{% endblock %}

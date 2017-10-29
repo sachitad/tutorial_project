@@ -1,5 +1,6 @@
 {% load nav_menu %}
 {% load static %}
+{% load flatpages %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,33 +39,22 @@
   <div class="container">
     <div class="row">
       <div class="col l6 s12">
-        <h5 class="white-text">Company Bio</h5>
+        <h5 class="white-text">Stay updated about Python</h5>
         {% subscriber_form %}
       </div>
-      <div class="col l3 s12">
-        <h5 class="white-text">Settings</h5>
+      <div class="col l6 s12 center">
+        {% get_flatpages as flatpages %}
         <ul>
-          <li><a class="white-text" href="#!">Link 1</a></li>
-          <li><a class="white-text" href="#!">Link 2</a></li>
-          <li><a class="white-text" href="#!">Link 3</a></li>
-          <li><a class="white-text" href="#!">Link 4</a></li>
-        </ul>
-      </div>
-      <div class="col l3 s12">
-        <h5 class="white-text">Connect</h5>
-        <ul>
-          <li><a class="white-text" href="#!">Link 1</a></li>
-          <li><a class="white-text" href="#!">Link 2</a></li>
-          <li><a class="white-text" href="#!">Link 3</a></li>
-          <li><a class="white-text" href="#!">Link 4</a></li>
+          {% for page in flatpages %}
+            <li><a class="white-text" href="{{ page.url }}">{{ page.title }}</a></li>
+          {% endfor %}
         </ul>
       </div>
     </div>
   </div>
   <div class="footer-copyright">
     <div class="container">
-      Made by <a class="orange-text text-lighten-3"
-                 href="http://materializecss.com">Materialize</a>
+      Copyright © Python Guides
     </div>
   </div>
 </footer>
@@ -85,7 +75,7 @@
             statusCode: {
                 200: function (html) {
                     subscriberForm.hide();
-                    $( "#subscriber-success" ).show();
+                    $("#subscriber-success").show();
                 }
             }
         });
